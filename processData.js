@@ -16,7 +16,7 @@ export function renderData(data) {
             examples: []
         } 
         posData.pos = pos;
-        posData.pronunciation = data.pronunciation.all || data.pronunciation[pos] || data.pronunciation;//words API sometimes has a general pronunciation or pronunciation for each pos
+        posData.pronunciation = data.pronunciation.all || data.pronunciation[pos] || data.pronunciation || data.word;//words API sometimes has a general pronunciation or pronunciation for each pos
         for(let result of results) {
             if(result.partOfSpeech === pos) {
                 posData.definitions.push(result.definition);

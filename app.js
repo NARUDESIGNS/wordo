@@ -29,9 +29,10 @@ const searchBtn = document.getElementById("search-btn");
 
 //BOOKMARK VIEW
 const bookmarkView = document.getElementById("bookmark-view");
-const bookmarkExitBtn = document.getElementById("bookmark-exit-btn");
 const wordsSaved = document.getElementById("words-saved");
-const wordOfTheDay = document.getElementById("word-of-the-day");
+//const wordOfTheDay = document.getElementById("word-of-the-day");
+const bookmarkExitBtn = document.getElementById("bookmark-exit-btn");
+const savedWordsContainer = document.getElementById("saved-words-container");
 
 
 //-------------------- FUNCTIONS ----------------------
@@ -244,7 +245,7 @@ function getWordData(word){
             logMessage(connectionTip);
         }
         else {
-            alert("error encountered searching that word")
+            alert("error encountered searching that word! please search another");
         }
     }); 
 }
@@ -323,17 +324,38 @@ searchBtn.addEventListener("click", () => {
 })
 
 
+//---------- BOOKMARK VIEW ------------------
+wordsSaved.addEventListener("click", () => {
+    mainView.classList.add("slide-element-out");
+    setTimeout(() => {
+        hide(mainView);
+        hide(menu);
+        mainView.classList.remove("slide-element-out");
+        bookmarkView.classList.add("fade-in");
+        show(bookmarkView);
+    }, 250)
+})
+
+bookmarkExitBtn.addEventListener("click", () => {
+    bookmarkView.classList.add("fade-out");
+    bookmarkView.classList.remove("fade-in");
+    setTimeout(() => {
+        hide(bookmarkView);
+        show(mainView);
+        bookmarkView.classList.remove("fade-out");
+    }, 250)
+})
 
 
 
 
-// createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
-// createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
-// createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
-// createSyllables("narufy", "verb", "na-ru-fy", "3");
-// createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+//you should take this out later on when the app is ready
 show(mainBody);
-
+createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
+createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
+createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
+createSyllables("narufy", "verb", "na-ru-fy", "3");
+createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
 let jsonData = {
     "word": "love",
     "results": [
@@ -403,21 +425,48 @@ renderData(jsonData);
 export function enableSave() {
     let save = document.getElementsByClassName("word-utils__save");
     for(let i = 0; i < save.length; i++) { 
+        //save word from the API data in word variable
         let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
         save[i].addEventListener("click", () => {
-            saveWord(word);
+            //saveWord(word);
+            renderSavedWords(word);
         })
     }
 }
 
-//process saved words
-let savedWords = [];
-export function saveWord(word) {
-    savedWords.unshift(word);
-    savedWords = [... new Set(savedWords)];
-    renderSavedWords(savedWords);
-}
+//this variable is used for making sure a word is saved before we make saved words unique
+let wordExists = [];
+function renderSavedWords(word){ console.log(typeof wordExists);
+    //add to saved words and make sure a word doesn't get saved multiple times
+    if(!wordExists.includes(word)){
+        savedWordsContainer.innerHTML += `
+            <div class="saved">
+                <p class="saved__word">${word.toLowerCase()}</p>
+                <span id="saved-remove-btn" class="saved__remove-icon"><i class="fa fa-times"></i></span>
+            </div>
+        `;
+        wordExists.push(word);    
+    }
 
-function renderSavedWords(words){
-    console.log(words);
+    //saved word is deleted
+    const deleteSavedWordBtns = document.getElementsByClassName("saved__remove-icon");
+    for(let deleteBtn of deleteSavedWordBtns) {
+        deleteBtn.addEventListener("click", () => {
+            deleteBtn.parentElement.classList.add("fade-out");
+            setTimeout(() => {
+                savedWordsContainer.removeChild(deleteBtn.parentElement);
+            }, 500);
+            let text = deleteBtn.previousElementSibling.innerText;
+            wordExists.splice(wordExists.indexOf(text), 1);
+        })
+    }
+    let saved = document.getElementsByClassName("saved");
+    for(let each of saved){
+        each.addEventListener("click", () => {
+            hide(bookmarkView);
+            show(mainView);
+            logMessage(loader);
+            getWordData(each.firstElementChild.innerText);
+        })
+    }
 }

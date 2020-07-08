@@ -46,7 +46,24 @@
         -moz-transform: translateY(0);
         -ms-transform: translateY(0);
         -o-transform: translateY(0);
+    }
 }
+
+.fade-in {
+    animation: fade-in 0.6s ease forwards;
+    -webkit-animation: fade-in 0.6s ease forwards;
+}
+@keyframes fade-in {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+.fade-out {
+    animation: fade-out 0.6s ease forwards;
+    -webkit-animation: fade-out 0.6s ease forwards;
+}
+@keyframes fade-out {
+    from { opacity: 1 }
+    to { opacity: 0 }
 }
 
 .fade-in-logo{
@@ -116,6 +133,14 @@
 @keyframes slide-element-in {
     from { left: -100% }
     to { left: 0% }   
+}
+.slide-element-out {
+    animation: 0.6s slide-element-out ease forwards;
+    -webkit-animation: 0.6s slide-element-out ease forwards;
+}
+@keyframes slide-element-out {
+    from { left: 0% }   
+    to { left: -100% }
 }
 
 .slide-menu-down {
@@ -222,8 +247,8 @@
     -o-border-radius: 50%;
     border-top: none;
     border-right: none;
-    animation: rotate-loader 1s linear infinite;
-    -webkit-animation: rotate-loader 1s linear infinite;
+    animation: rotate-loader 0.7s linear infinite;
+    -webkit-animation: rotate-loader 0.7s linear infinite;
     display: none;
 }
 @keyframes rotate-loader {
@@ -597,7 +622,7 @@
     width: 200px;
     word-wrap: break-word;
     background-color: var(--light-gray);
-    margin-right: 25px;
+    margin-right: 20px;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -779,11 +804,11 @@
     padding: 0 10%;
     position: fixed;
     top: 0;
-    box-shadow: 0 -10px 35px rgb(172, 172, 172);
+    box-shadow: 0 1px 10px rgb(172, 172, 172, 0.2);
 }
 
 .bookmark-header-container__return-icon,
-.saved .saved__remove-icon {
+ .saved__remove-icon {
     height: 40px;
     width: 40px;
     background-color: var(--light-gray);
@@ -817,8 +842,13 @@
     -moz-border-radius: 7px;
     -ms-border-radius: 7px;
     -o-border-radius: 7px;
+    cursor: pointer;
+    font-weight: 500;
 }
-.saved .saved__remove-icon {
+.saved:hover {
+    border: 2px solid rgb(179, 179, 179, 0.4);
+}
+.saved__remove-icon {
     font-size: 11px;
     height: 35px;
     width: 35px;
