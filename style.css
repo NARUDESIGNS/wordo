@@ -5,3 +5,24 @@
     margin: 0;
     padding: 0;
 }
+
+:root {
+
+}
+
+.container {
+    margin: 0 auto;
+    width: 80%;
+}
+
+/* ---------------------- INTRO VIEW ------------------- */
+.intro-view {
+    position: relative;
+    display: none;
+}
+
+/* ---------------------- MAIN VIEW ------------------- */
+.main-view {
+    position: relative;
+    display: none;
+}

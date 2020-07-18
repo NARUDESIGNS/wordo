@@ -1,0 +1,15 @@
+fetch(`https://wordsapiv1.p.rapidapi.com/words/${word}`, {
+	"method": "GET",
+	"headers": {
+		"x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
+		"x-rapidapi-key": "181bdbd4d8msh2fc3880ee0d5a4bp1f9d15jsna810d4b9bacf"
+	}
+})
+.then(response => response;
+)
+.then(data => {
+	console.log(data);
+})
+.catch(err => {
+	console.log(err);
+});
