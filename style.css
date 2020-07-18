@@ -24,5 +24,11 @@
 /* ---------------------- MAIN VIEW ------------------- */
 .main-view {
     position: relative;
+    display: non;
+}
+
+/* ---------------------- BOOKMARK VIEW ------------------- */
+.bookmark-view {
+    position: relative;
     display: none;
 }
