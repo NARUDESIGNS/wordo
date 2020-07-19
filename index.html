@@ -12,8 +12,8 @@
 
         <div class="intro-view">
             <section class="intro-message">
-                <span class="intro-message__logo"></span>
-                <p class="intro-message-text">
+                <div class="intro-message__logo fade-in-logo"></div>
+                <p class="intro-message-text slide-in-text">
                     Wordo is a simple dictionary with thousands of words whose 
                     meaning and other meaningful info attached to it you can 
                     access from your device.
@@ -21,16 +21,30 @@
             </section>
 
             <div class="intro-images-container">
-                <section class="intro-images search">
-                    <p class="intro-image__text">
-                        <span class="intro-image-text--word">SEARCH</span> <br>
-                        to look for something by...</p>
-                </section>
-                
                 <section class="intro-images dog">
                     <p class="intro-image__text">
                         <span class="intro-image-text--word">DOG</span> <br>
-                        a domestic animal with...</p>
+                        / 'dog / <br>
+                        a highly variable domestic mammal <br>
+                        (canis familiaris) closely related to <br>
+                        the gray wolf. <br><br>
+                        <strong>Example</strong><br>
+                        Kobby is a good dog, she likes <br>
+                        reading and swimming. <br>
+                    </p>
+                </section>
+
+                <section class="intro-images search">
+                    <p class="intro-image__text">
+                        <span class="intro-image-text--word">SEARCH</span> <br>
+                        / 'serch / <br>
+                        to carefully look for someone or something <br>
+                        to try to find someone or something. <br><br>
+                        <strong>Example</strong><br>
+                        I'm in search of a job, I<br>
+                        reading and swimming. <br>
+                    </p>
+                    </p>
                 </section>
                 
                 <section class="intro-images home">
@@ -42,7 +56,8 @@
                 <section class="intro-images sing">
                     <p class="intro-image__text">
                         <span class="intro-image-text--word">SING</span> <br>
-                        to make melodious sounds...</p>
+                        /sin/
+                    </p>
                 </section>
             </div>        
             
@@ -52,7 +67,11 @@
 
         <div class="main-view">
             <section class="dropdown-menu">
-                
+                <div class="menu-options">
+                    <span class="menu-options__saved-icon"><i class="fa fa-bookmark"></i></span> <p class="menu-options__saved">words you saved</p>
+                    <span class="menu-options__wotd-icon"><i class="fa fa-circle"></i></span> <p class="menu-options__wotd">word of the day</p>
+                </div>
+                <span class="dropdown-menu__remove-icon"><i class="fa fa-times"></i></span>
             </section>
 
             <section class="nav">
@@ -63,7 +82,7 @@
             <section class="word-container">
                 <div class="word-utils">
                     <p class="word-utils__part-of-speech">Noun</p>
-                    <span class="word-utils__save-icon"><i class="fa fa-bookmark"></i></span>
+                    <p class="word-utils__save">save</></span>
                 </div>
 
                 <div class="word">
