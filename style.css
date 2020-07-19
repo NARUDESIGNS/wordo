@@ -7,7 +7,7 @@
 }
 
 :root {
-    --light-gray: rgb(236, 236, 236);
+    --light-gray: rgb(247, 247, 247);
     --main-color: rgb(72, 94, 94);
 }
 
@@ -75,7 +75,8 @@
 /* ------------------------- AMIMATIONS ENDS --------------------- */
 
 body {
-    background-color: rgb(252, 252, 252);
+    /* background-color: rgb(252, 252, 252); */
+    background-color: var(--light-gray);
 }
 
 .container {
@@ -90,6 +91,7 @@ body {
 /* ---------------------- INTRO VIEW ------------------- */
 .intro-view {    
     /* put something here later */
+    display: none;
 }
 
 .intro-message {
@@ -191,5 +193,56 @@ body {
 /* ---------------------- BOOKMARK VIEW ------------------- */
 .bookmark-view {
     position: relative;
-    display: none;
+    display: non;
+}
+
+.bookmark-header-container {
+    height: 100px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10%;
+}
+
+.bookmark-header-container__return-icon,
+.saved .saved__remove-icon {
+    height: 40px;
+    width: 40px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    font-size: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+
+.saved-words-container {
+    margin: 2%;
+    /* border: 1px solid yellow; */
+}
+.saved {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    margin: 10px 0;
+    padding: 0 8%;
+    height: 70px;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+}
+.saved .saved__remove-icon {
+    font-size: 11px;
+    height: 35px;
+    width: 35px;
 }
