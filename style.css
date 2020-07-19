@@ -87,7 +87,6 @@ body {
 } 
 
 
-
 /* ---------------------- INTRO VIEW ------------------- */
 .intro-view {    
     /* put something here later */
@@ -175,7 +174,12 @@ body {
     background-color: var(--main-color);
     color: white;
     cursor: pointer;
+    outline: none;
     display: non;
+}
+
+.fa-angle-right {
+    margin-left: 10px;
 }
 
 /* ---------------------- MAIN VIEW ------------------- */
