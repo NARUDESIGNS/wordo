@@ -8,9 +8,18 @@
 }
 
 :root {
+    --main-color: rgb(74, 95, 95);
     --light-gray: rgb(247, 247, 247);
-    --main-color: rgb(41, 54, 54);
     --text-color: rgb(94, 94, 94);
+
+    /* colors based on parts of speech. Noun takes main color */
+    --pronoun: rgb(85, 112, 110);
+    --verb: rgb(145, 61, 93);
+    --adverb: rgb(212, 99, 24);
+    --adjective: rgb(209, 156, 10);
+    --preposition: rgb(122, 39, 115);
+    --conjuction: rgb(77, 90, 150);
+    --interjection: rgb(180, 50, 50);
 }
 
 /* ------------------------- AMIMATIONS BEGINS --------------------- */
@@ -207,7 +216,28 @@ body {
     display: non;
 }
 .dropdown-menu {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 3px 15px rgb(172, 172, 172, .7);
+    padding: 30px 10%;
     display: none;
+}
+.menu-options {
+    list-style-type: none;
+    font-weight: 500;
+}
+.menu-options__saved,
+.menu-options__wotd {
+    display: inline-block;
+    margin: 5px 15px;
+}
+.dropdown-menu__remove-icon {
+    cursor: pointer;
 }
 
 .nav {
@@ -226,12 +256,15 @@ body {
 .nav__logo-text {
     color: rgb(87, 87, 87);
 }
+.main-body {
+    display: none;
+}
 .word-container {
     margin: 0px 10%;
     padding: 20px;
     margin-top: 100px;
     min-height: 100px;
-    background-color: rgb(55, 73, 73);
+    background-color: var(--main-color);
     color: white;
     word-wrap: break-word;
     line-height: 1.5;
@@ -411,11 +444,11 @@ body {
     margin-left: 15px;
 }
 
-.search {
+.search-container {
     margin: 20px 10%;
     position: relative;
 }
-.search__input {
+.search-container__input {
     width: 100%;
     height: 55px;
     outline: none;
@@ -429,7 +462,7 @@ body {
     -ms-border-radius: 50px;
     -o-border-radius: 50px;
 }
-.search__botton {
+.search-container__botton {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -493,6 +526,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .saved-words-container {
