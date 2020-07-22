@@ -11,6 +11,9 @@ const dots = document.getElementsByClassName("dots");
 
 //MAIN VIEW RESOURCES
 const mainView = document.getElementById("main-view");
+const menu = document.getElementById("menu");
+const menuIcon = document.getElementById("menu-icon");
+const closeMenuIcon = document.getElementById("close-menu");
 
 //-------------------- FUNCTIONS ----------------------
 //show element
@@ -33,13 +36,32 @@ introExploreBtn.addEventListener("click", () =>{
     }, 1300);
 })
 
+//intro view is clicked and links to main view
 introViewExploreBtn.addEventListener("click", () => {
     hide(introView);
     show(mainView);
     mainView.classList.add("fade-element-in");
 })
 
-//slide intro images
+
+//menu icon is clicked
+menuIcon.addEventListener("click", () => {
+    menu.classList.toggle("slide-menu-down");
+    show(menu, "flex");
+})
+//menu icon is clicked
+closeMenuIcon.addEventListener("click", () => {
+    menu.classList.toggle("slide-menu-down");
+    menu.classList.toggle("slide-menu-up");
+    setTimeout(() => {
+        hide(menu);
+        menu.classList.toggle("slide-menu-down");
+        menu.classList.toggle("slide-menu-up");
+    }, 800);
+})
+
+
+
 
 //small image slider dot is clicked 
 // function dotActive(n) {

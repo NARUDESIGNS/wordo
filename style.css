@@ -92,6 +92,24 @@
     to { left: 0% }   
 }
 
+.slide-menu-down {
+    animation: 0.3s slide-menu-down ease forwards;
+    -webkit-animation: 0.3s slide-menu-down ease forwards;
+}
+@keyframes slide-menu-down {
+    from { top: -150px}
+    to { top: 0}
+}
+
+.slide-menu-up {
+    animation: 0.3s slide-menu-up ease forwards;
+    -webkit-animation: 0.3s slide-menu-up ease forwards;
+}
+@keyframes slide-menu-up {
+    from { top: 0}
+    to { top: -150px}
+}
+
 /* ------------------------- AMIMATIONS ENDS --------------------- */
 
 /*------------------ warning | messages absolutely positioned starts here -------------------*/
@@ -99,14 +117,15 @@
 .messages {
     /* border: 1px solid red; */
     position: relative;
-    height: 100vh;
+    top: 85px;
+    height: 70vh;
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 2;
-    z-index: 20;
-    display: none;
+    z-index: 5;
+    display: non;
 }
 
 .warning {
@@ -131,7 +150,7 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
-    display: non;
+    display: none;
 }
 .slide-warning-up {
     animation: slide-up 0.5s ease;
@@ -224,7 +243,7 @@
     -o-border-radius: 50%;
 }
 .messages__search-tip {
-    display: none;
+    display: non;
 }
 .messages__search-tip--search-icon {
     background-color: rgba(252, 238, 201, 0.795);
@@ -257,7 +276,7 @@ body {
 /* ---------------------- INTRO VIEW ------------------- */
 .intro-view {    
     /* put something here later */
-    display: non;
+    display: none;
 }
 
 .intro-message {
@@ -417,9 +436,9 @@ body {
     width: 100vw;
     z-index: 3;
     height: auto;
-    display: none;
+    display: non;
 }
-.dropdown-menu {
+.menu {
     position: fixed;
     top: 0;
     z-index: 10;
@@ -440,7 +459,7 @@ body {
     display: inline-block;
     margin: 5px 15px;
 }
-.dropdown-menu__remove-icon {
+.menu__remove-icon {
     cursor: pointer;
 }
 
@@ -460,9 +479,12 @@ body {
 .nav__logo-text {
     color: rgb(87, 87, 87);
 }
+.nav__menu-icon {
+    cursor: pointer;
+}
 .main-body {
     margin-top: 100px;
-    display: non;
+    display: none;
 }
 .word-container {
     margin: 0px 10%;
@@ -630,9 +652,9 @@ body {
     overflow-x: auto;
     display: none;
 }
-    ::-webkit-scrollbar {
-        display: none;
-    }
+::-webkit-scrollbar {
+    display: none;
+}
 .recent-search {
     display: flex;
     padding: 5px 15px;
@@ -660,6 +682,7 @@ body {
     padding: 0 70px 0 20px;
     background-color: var(--light-gray);
     color: var(--text-color);
+    font-size: 17px;
     border-radius: 50px;
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;

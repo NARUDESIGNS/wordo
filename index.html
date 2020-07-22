@@ -10,17 +10,17 @@
 <body>
     
     <div class="container">
-        <div class="messages">
-            <p class="warning" id="warning"> Link not valid, please insert a valid link  </p>
+        <div class="messages slide-element-in">
+            <p id="warning" class="warning"> Link not valid, please insert a valid link  </p>
 
-            <section class="messages__loader"></section>
+            <section id="loader" class="messages__loader"></section>
             
-            <section class="messages__search-tip">
+            <section id="search-tip" class="messages__search-tip">
                 <span class="messages__search-tip--search-icon"><i class="fa fa-search"></i></span>
-                <p class="messages__text-tip">click the search bar below to <br> start searching</p>
+                <p class="messages__text-tip">hit the search bar below to <br> start searching</p>
             </section>
 
-            <section class="messages__connection-tip">
+            <section id="connection-tip" class="messages__connection-tip">
                 <span class="messages__connection-tip--wifi-icon"><i class="fa fa-wifi"></i></span>
                 <p class="messages__text-tip">oops! connection error <br>please check your connection <br>and try again</p>
             </section>
@@ -102,9 +102,9 @@
             </section>
         </div>
 
-        <div id="main-view" class="main-view fade-element-in">
+        <div id="main-view" class="main-view slide-element-in">
 
-            <section class="dropdown-menu">
+            <section id="menu" class="menu">
                 <ul class="menu-options">
                     <li>
                         <span class="menu-options__saved-icon"><i class="fa fa-bookmark"></i></span> 
@@ -115,12 +115,12 @@
                         <p class="menu-options__wotd"> Word of the day </p>                        
                     </li>
                 </ul>
-                <span class="dropdown-menu__remove-icon"><i class="fa fa-times"></i></span>
+                <span id="close-menu" class="menu__remove-icon"><i class="fa fa-times"></i></span>
             </section>
 
             <section class="nav">
                 <h4 class="nav__logo-text">wordo</h4>
-                <span class="nav__menu-icon"><i class="fa fa-grip-lines"></i></span>
+                <span id="menu-icon" class="nav__menu-icon"><i class="fa fa-grip-lines"></i></span>
             </section>
 
             <div class="main-body">
