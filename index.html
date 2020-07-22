@@ -8,74 +8,102 @@
     <link rel="stylesheet" href="css/all.css">
 </head>
 <body>
+    
     <div class="container">
+        <div class="messages">
+            <p class="warning" id="warning"> Link not valid, please insert a valid link  </p>
 
-        <div class="intro-view">
-            <section class="intro-message">
-                <div class="intro-message__logo fade-in-logo"></div>
-                <p class="intro-message-text slide-in-text">
-                    Wordo is a simple dictionary with thousands of words whose 
-                    meaning and other meaningful info attached to it you can 
-                    access from your device.
-                </p>
+            <section class="messages__loader"></section>
+            
+            <section class="messages__search-tip">
+                <span class="messages__search-tip--search-icon"><i class="fa fa-search"></i></span>
+                <p class="messages__text-tip">click the search bar below to <br> start searching</p>
             </section>
 
-            <div class="intro-images-container">
-                <section class="intro-images dog">
-                    <p class="intro-image__text">
-                        <span class="intro-image-text--word">DOG</span> <br>
-                        / 'dog / <br>
-                        a highly variable domestic mammal <br>
-                        (canis familiaris) closely related to <br>
-                        the gray wolf. <br><br>
-                        <strong>Example</strong><br>
-                        Kobby is a good dog, she likes <br>
-                        reading and swimming. <br>
-                    </p>
-                </section>
-
-                <section class="intro-images search">
-                    <p class="intro-image__text">
-                        <span class="intro-image-text--word">SEARCH</span> <br>
-                        / 'serch / <br>
-                        to carefully look for someone or something <br>
-                        to try to find someone or something. <br><br>
-                        <strong>Example</strong><br>
-                        I'm in search of a job, I'm a passionate frontend developer<br>
-                        and a graphic designer. <br>
-                    </p>
-                    </p>
-                </section>
-                
-                <section class="intro-images home">
-                    <p class="intro-image__text">
-                        <span class="intro-image-text--word">HOME</span> <br>
-                        / 'hom / <br>
-                        the place (such as house or apartment where) <br>
-                        someone lives.<br><br>
-                        <strong>Example</strong><br>
-                        My home is beautiful, I live with my family<br>
-                        in it and we are very happy! <br>
-                </section>
-                
-                <section class="intro-images sing">
-                    <p class="intro-image__text">
-                        <span class="intro-image-text--word">SING</span> <br>
-                        /sin/ <br>
-                        to use your voice to make musical sounds in <br>
-                        the form of a somg or tune.<br><br>
-                        <strong>Example</strong><br>
-                        Asides coding, I play the piano while I sing <br>
-                        my favorite songs. <br>
-                    </p>
-                </section>
-            </div>        
-            
-            <button class="intro-view__explore">EXPLORE <i class="fa fa-angle-right"></i></button>
-
+            <section class="messages__connection-tip">
+                <span class="messages__connection-tip--wifi-icon"><i class="fa fa-wifi"></i></span>
+                <p class="messages__text-tip">oops! connection error <br>please check your connection <br>and try again</p>
+            </section>
         </div>
 
-        <div class="main-view">
+        <div id="intro-view" class="intro-view">
+            <section id="intro-message" class="intro-message">
+                <h2 id="logo" class="intro-message__logo fade-in-logo">wordo</h2>
+                <p id="about-wordo" class="intro-message-text slide-in-text">
+                    Wordo is a simple dictionary with thousands of words whose 
+                    definitions and other meaningful info attached to it you can 
+                    access from your device.
+                </p>
+                <button id="intro-explore-btn" class="intro-message__explore">EXPLORE <i class="fa fa-angle-right"></i></button>
+            </section>
+
+            <section id="intro-body" class="intro-body">
+                <div class="swipe-container">
+                    <span class="swipe-container__swipe"><i class="fa fa-arrow-left"></i></span>
+                    <p class="swipe-container__swipe">swipe</p>
+                    <span class="swipe-container__swipe"><i class="fa fa-arrow-right"></i></span>
+                    <!-- <a href="#dog" class="dots active" onclick="dotActive(0)"></a>
+                    <a href="#search" class="dots" onclick="dotActive(1)"></a>
+                    <a href="#home" class="dots" onclick="dotActive(2)"></a>
+                    <a href="#sing" class="dots" onclick="dotActive(3)"></a> -->
+                </div>
+                <div class="intro-images-container">
+                    <section id="dog" class="intro-images dog">
+                        <p class="intro-image__text">
+                            <span class="intro-image-text--word">DOG</span> <br>
+                            / 'dog / <br>
+                            a highly variable domestic mammal <br>
+                            (canis familiaris) closely related to <br>
+                            the gray wolf. <br><br>
+                            <strong>Example</strong><br>
+                            Kobby is a good dog, she likes <br>
+                            reading and swimming. <br>
+                        </p>
+                    </section>
+
+                    <section id="search" class="intro-images search">
+                        <p class="intro-image__text">
+                            <span class="intro-image-text--word">SEARCH</span> <br>
+                            / 'serch / <br>
+                            to carefully look for someone or something <br>
+                            to try to find someone or something. <br><br>
+                            <strong>Example</strong><br>
+                            I'm in search of a job, I'm a passionate frontend developer<br>
+                            and a graphic designer. <br>
+                        </p>
+                        </p>
+                    </section>
+                    
+                    <section id="home" class="intro-images home">
+                        <p class="intro-image__text">
+                            <span class="intro-image-text--word">HOME</span> <br>
+                            / 'hom / <br>
+                            the place (such as house or apartment where) <br>
+                            someone lives.<br><br>
+                            <strong>Example</strong><br>
+                            My home is beautiful, I live with my family<br>
+                            in it and we are very happy! <br>
+                    </section>
+                    
+                    <section id="sing" class="intro-images sing">
+                        <p class="intro-image__text">
+                            <span class="intro-image-text--word">SING</span> <br>
+                            /sin/ <br>
+                            to use your voice to make musical sounds in <br>
+                            the form of a somg or tune.<br><br>
+                            <strong>Example</strong><br>
+                            Asides coding, I play the piano while I sing <br>
+                            my favorite songs. <br>
+                        </p>
+                    </section>
+                </div>        
+                
+                <button id="intro-view-explore-btn" class="intro-view__explore">EXPLORE <i class="fa fa-angle-right"></i></button>
+            </section>
+        </div>
+
+        <div id="main-view" class="main-view fade-element-in">
+
             <section class="dropdown-menu">
                 <ul class="menu-options">
                     <li>
@@ -199,9 +227,6 @@
                     <span class="search-container__botton"><i class="fa fa-search"></i></span>
                 </div>
             </section>
-            <!-- unsure of this closing div below check it out -->
-        </div> 
-            
         </div>
 
         <div class="bookmark-view">
