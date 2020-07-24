@@ -13,12 +13,13 @@
     --text-color: rgb(94, 94, 94);
 
     /* colors based on parts of speech. Noun takes main color */
-    --pronoun: rgb(85, 112, 110);
+    --noun: rgb(79, 116, 116);
+    --pronoun: rgb(72, 192, 184);
     --verb: rgb(145, 61, 93);
     --adverb: rgb(212, 99, 24);
     --adjective: rgb(209, 156, 10);
     --preposition: rgb(122, 39, 115);
-    --conjuction: rgb(77, 90, 150);
+    --conjunction: rgb(77, 90, 150);
     --interjection: rgb(180, 50, 50);
 }
 
@@ -125,7 +126,7 @@
     justify-content: center;
     line-height: 2;
     z-index: 5;
-    display: non;
+    display: none;
 }
 
 .warning {
@@ -135,22 +136,22 @@
     padding: 20px;
     font-size: 14px;
     min-width: 70%;
-    top: 100vh;
+    top: -100vh;
     left: 50%;
     color: white;
-    /* background-color: rgba(252, 193, 32, 0.795); */
-    background-color: rgba(240, 97, 97, 0.795);
+    /*background-color: rgba(252, 193, 32, 0.795);
+    */background-color: rgba(240, 97, 97, 0.795);
     transform: translateX(-50%);
     -webkit-transform: translateX(-50%);
     -moz-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     -o-transform: translateX(-50%);
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    display: none;
+    border-radius: 7px;
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    -ms-border-radius: 7px;
+    -o-border-radius: 7px;
+    display: non;
 }
 .slide-warning-up {
     animation: slide-up 0.5s ease;
@@ -246,7 +247,7 @@
     display: non;
 }
 .messages__search-tip--search-icon {
-    background-color: rgba(252, 238, 201, 0.795);
+    background-color: rgba(236, 236, 236, 0.795);
 }
 .messages__connection-tip {
     display: none;
@@ -431,6 +432,7 @@ body {
     /* without this padding, the margin value of main-view's first child 
     will appl for main-view instead */
     padding-top: 1px;
+    padding-bottom: 80px;
     background-color: white;
     min-height: 100vh;
     width: 100vw;
@@ -447,7 +449,7 @@ body {
     width: 100%;
     background-color: white;
     box-shadow: 0 3px 15px rgb(172, 172, 172, .7);
-    padding: 30px 10%;
+    padding: 10px 10%;
     display: none;
 }
 .menu-options {
@@ -484,7 +486,7 @@ body {
 }
 .main-body {
     margin-top: 100px;
-    display: none;
+    display: non;
 }
 .word-container {
     margin: 0px 10%;
@@ -506,6 +508,9 @@ body {
     justify-content: space-between;
     margin-bottom: 20px;
 }
+/* .word-utils__part-of-speech {
+    text-transform: capitalize;
+} */
 .word-utils__save {
     padding: 5px 15px;
     border: 1px solid white;
@@ -531,7 +536,7 @@ body {
     margin-top: 30px;
 }
 .definitions-container__text {
-    margin-top: 10px;
+    margin-top: 20px;
 }
 
 .examples-overall-container {
@@ -606,7 +611,7 @@ body {
 
 .synonym-antonym {
     margin: 40px  0;
-    margin-bottom: 150px;
+    margin-bottom: 40px;
     padding: 1px 10%;
     background-color: var(--light-gray);
 }
@@ -635,7 +640,7 @@ body {
     z-index: 5;
     background-color: white;
     width: 100%;
-    box-shadow: 0 -10px 45px rgb(172, 172, 172, .3);
+    box-shadow: 0 -5px 15px rgb(172, 172, 172, .2);
 }
 .search-utils__header {
     margin: 0 10%;
@@ -671,7 +676,7 @@ body {
 }
 
 .search-container {
-    margin: 20px 10%;
+    margin: 12px 10%;
     position: relative;
 }
 .search-container__input {
