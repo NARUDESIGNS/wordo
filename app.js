@@ -22,6 +22,8 @@ const mainBody = document.getElementById("main-body");
 const menu = document.getElementById("menu");
 const menuIcon = document.getElementById("menu-icon");
 const closeMenuIcon = document.getElementById("close-menu");
+const recentSearchHeader = document.getElementById("recent-search-header");
+const recentSearch = document.getElementById("recent-search");
 
 
 
@@ -35,7 +37,6 @@ function show(element, value = "block") {
 function hide(element) {
     element.style.display = "none";
 }
-
 
 
 //-------------------- LOG MESSAGES ----------------------
@@ -60,46 +61,6 @@ function logWarning(element) {
 }
 //logMessage(loader);
 
-
-
-//-------------------- VIEWS ----------------------
-
-//INTRO VIEW
-//explore button on first page is clicked
-introExploreBtn.addEventListener("click", () =>{
-    introExploreBtn.style.display = "none";
-    logo.classList.add("fade-out-logo");
-    aboutWordo.classList.add("slide-out-text");
-    setTimeout(() => {
-        hide(introMessage);
-        show(introBody);        
-    }, 1300);
-})
-
-//intro view is clicked and links to main view
-introViewExploreBtn.addEventListener("click", () => {
-    hide(introView);
-    show(mainView);
-    mainView.classList.add("fade-element-in");
-})
-
-
-//------------------------------ MAIN VIEW ---------------------
-//menu icon is clicked
-menuIcon.addEventListener("click", () => {
-    menu.classList.toggle("slide-menu-down");
-    show(menu, "flex");
-})
-
-//menu icon is clicked
-closeMenuIcon.addEventListener("click", () => {
-    menu.classList.toggle("slide-menu-down");
-    menu.classList.toggle("slide-menu-up");
-    setTimeout(() => {
-        hide(menu);
-        menu.classList.toggle("slide-menu-up");
-    }, 100);
-})
 
 
 //----------------------- CREATE ELEMENTS ------------------
@@ -211,6 +172,74 @@ function createSynonymAntonym(synonyms = "none", antonyms = "none"){
 }
 
 createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+
+//create recent searches
+function createRecentSearch(word) {
+    let searchContainer = document.createElement("section");
+    searchContainer.setAttribute("class", "recent-search");
+    searchContainer.innerHTML = `
+        <p class="recent-search__word">${word}</p>
+        <span class="recent-search__remove-icon"><i class="fa fa-times"></i></span>
+    `;
+    recentSearch.insertBefore(searchContainer, recentSearch.children[0]);
+}
+//createRecentSearch("holistic");
+
+
+
+
+
+//-------------------- VIEWS ----------------------
+
+//----------- INTRO VIEW ---------------
+//explore button on first page is clicked
+introExploreBtn.addEventListener("click", () =>{
+    introExploreBtn.style.display = "none";
+    logo.classList.add("fade-out-logo");
+    aboutWordo.classList.add("slide-out-text");
+    setTimeout(() => {
+        hide(introMessage);
+        show(introBody);        
+    }, 1300);
+})
+
+//intro view is clicked and links to main view
+introViewExploreBtn.addEventListener("click", () => {
+    hide(introView);
+    show(mainView);
+    mainView.classList.add("fade-element-in");
+})
+
+
+//---------- MAIN VIEW ------------------
+//menu icon is clicked
+menuIcon.addEventListener("click", () => {
+    menu.classList.toggle("slide-menu-down");
+    show(menu, "flex");
+})
+
+//menu icon is clicked
+closeMenuIcon.addEventListener("click", () => {
+    menu.classList.toggle("slide-menu-down");
+    menu.classList.toggle("slide-menu-up");
+    setTimeout(() => {
+        hide(menu);
+        menu.classList.toggle("slide-menu-up");
+    }, 100);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

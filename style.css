@@ -643,7 +643,7 @@ body {
     box-shadow: 0 -5px 15px rgb(172, 172, 172, .2);
 }
 .search-utils__header {
-    margin: 0 10%;
+    margin: 10px 10%;
     font-size: 12px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -651,7 +651,6 @@ body {
 }
 .recent-search-container {
     margin-left: 10%;
-    margin-bottom: 20px;
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
