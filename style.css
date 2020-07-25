@@ -460,6 +460,8 @@ body {
 .menu-options__wotd {
     display: inline-block;
     margin: 5px 15px;
+    /* border: 1px solid red; */
+    cursor: pointer;
 }
 .menu__remove-icon {
     cursor: pointer;
@@ -540,7 +542,7 @@ body {
 }
 
 .examples-overall-container {
-    /* margin: 0 10%; */
+    margin-bottom: 30px;
     /* border: 1px solid green; */
 }
 .examples-overall-container__header {
@@ -557,8 +559,8 @@ body {
 }
 .example {
     flex: 0 0 auto;
-    padding: 25px;
-    min-height: 100px;
+    padding: 20px;
+    min-height: 30px;
     width: 250px;
     word-wrap: break-word;
     background-color: var(--light-gray);

@@ -65,7 +65,7 @@ function logWarning(element) {
 
 //----------------------- CREATE ELEMENTS ------------------
 //create word container
-function createWordContainer(partOfSpeech, word, transcription, definition){
+export function createWordContainer(word, partOfSpeech, transcription, definition){
     mainBody.innerHTML += `
         <section id="${word}-${partOfSpeech}" class="word-container">
             <div class="word-utils">
@@ -87,10 +87,10 @@ function createWordContainer(partOfSpeech, word, transcription, definition){
     wordContainer.style.backgroundColor = `var(--${partOfSpeech.toLowerCase()})`;
 }
 
-createWordContainer("verb", "Narufy", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
+//createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
 
 //create definitions
-function createDefinitions(word, partOfSpeech, definitions) {
+export function createDefinitions(word, partOfSpeech, definitions) {
     mainBody.innerHTML += `
         <section id="${word}-${partOfSpeech}-definitions" class="definitions-container">
             <h4 class="definitions-container__header">Definitions</h4>
@@ -98,17 +98,17 @@ function createDefinitions(word, partOfSpeech, definitions) {
     `;
     let definitionsContainer = document.getElementById(`${word}-${partOfSpeech}-definitions`);
     //note definitions is an array of sentences (stings)
-    for(definition of definitions){
+    for(let definition of definitions){
         definitionsContainer.innerHTML += `
             <p class="definitions-container__text">${definition}</p>
         `;
     }
 }
 
-createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere."]);
+//createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere."]);
 
 //create examples
-function createExamples(word, partOfSpeech, examples){
+export function createExamples(word, partOfSpeech, examples){
     mainBody.innerHTML += `
         <section class="examples-overall-container">
             <h4 class="examples-overall-container__header">Examples</h4>
@@ -118,7 +118,7 @@ function createExamples(word, partOfSpeech, examples){
         </section>
     `;
     let examplesContainer = document.getElementById(`${word}-${partOfSpeech}-examples`);
-    for(example of examples) {
+    for(let example of examples) {
         examplesContainer.innerHTML += `
             <section class="example">
                 <p class="example__text"> ${example} </p>
@@ -127,28 +127,31 @@ function createExamples(word, partOfSpeech, examples){
     }
 }
 
-createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
+//createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
 
 //create syllables
-function createSyllables(word, partOfSpeech, syllable, count) {
+export function createSyllables(word, partOfSpeech, syllable, count) {
     mainBody.innerHTML += `
         <section class="syllables-container">
             <h4 class="syllables-container__header">Syllables</h4>
 
             <div id="${word}-${partOfSpeech}-syllables" class="syllables">
                 <p class="syllables__word">${syllable}</p>
-                <p class="syllables__count">${count}</p>
+                <p id="syllables-count" class="syllables__count">${count}</p>
             </div>
         </section>
     `;
     let syllablesBg = document.getElementById(`${word}-${partOfSpeech}-syllables`);
     syllablesBg.style.backgroundColor = `var(--${partOfSpeech})`;
+    //change syllable count color to match syllable background color
+    let syllablesCount = document.getElementById("syllables-count");
+    syllablesCount.style.color = `var(--${partOfSpeech})`;
 }
 
-createSyllables("narufy", "verb", "na-ru-fy", "3");
+//createSyllables("narufy", "verb", "na-ru-fy", "3");
 
 //create  synonyms & antonyms
-function createSynonymAntonym(synonyms = "none", antonyms = "none"){
+export function createSynonymAntonym(synonyms = "none", antonyms = "none"){
     //antonyms and synonyms to from array to string
     if(synonyms) synonyms = synonyms.join(", ");
     if(synonyms) antonyms = antonyms.join(", ");
@@ -171,7 +174,7 @@ function createSynonymAntonym(synonyms = "none", antonyms = "none"){
     `;
 }
 
-createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+//createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
 
 //create recent searches
 function createRecentSearch(word) {
