@@ -10,6 +10,7 @@
 :root {
     --main-color: rgb(79, 116, 116);
     --light-gray: rgb(247, 247, 247);
+    --very-light-gray: rgb(250, 249, 249);
     --text-color: rgb(94, 94, 94);
 
     /* colors based on parts of speech. Noun takes main color */
@@ -126,7 +127,7 @@
     justify-content: center;
     line-height: 2;
     z-index: 5;
-    display: non;
+    display: none;
 }
 
 .warning {
@@ -436,7 +437,7 @@ body {
     background-color: white;
     min-height: 100vh;
     width: 100vw;
-    z-index: 3;
+    z-index: 4;
     height: auto;
     display: non;
 }
@@ -448,7 +449,7 @@ body {
     justify-content: space-between;
     width: 100%;
     background-color: white;
-    box-shadow: 0 3px 15px rgb(172, 172, 172, .7);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
     padding: 10px 10%;
     display: none;
 }
@@ -463,7 +464,7 @@ body {
     /* border: 1px solid red; */
     cursor: pointer;
 }
-.menu__remove-icon {
+.menu__remove-icon .fa-times{
     cursor: pointer;
 }
 
@@ -478,7 +479,7 @@ body {
     width: 100%;
     background-color: white;
     padding: 0 10%;
-    box-shadow: 0 3px 15px rgb(172, 172, 172, .2);
+    box-shadow: 0 1px 10px rgb(172, 172, 172, .1);
 }
 .nav__logo-text {
     color: rgb(87, 87, 87);
@@ -542,7 +543,7 @@ body {
 }
 .definitions-container__text:nth-child(odd) {
     padding: 10px;
-    background-color: var(--light-gray);
+    background-color: var(--very-light-gray);
 }
 .examples-overall-container {
     margin-bottom: 30px;
@@ -674,6 +675,7 @@ body {
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     -o-border-radius: 5px;
+    cursor: pointer;
 }
 .recent-search__remove-icon {
     margin-left: 15px;

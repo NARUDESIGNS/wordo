@@ -177,8 +177,29 @@ function createRecentSearch(word) {
         <span class="recent-search__remove-icon"><i class="fa fa-times"></i></span>
     `;
     recentSearch.insertBefore(searchContainer, recentSearch.children[0]);
+
+    //recently searched word is clicked
+    let recentlySearchedWords = document.getElementsByClassName("recent-search__word");
+    for(let word of recentlySearchedWords) {
+        word.addEventListener("click", () => {
+            userInput.value = word.innerText;
+        })
+    }
+
+    //recently searched word is deleted
+    let removeRecentSearchWord = document.getElementsByClassName("recent-search__remove-icon");
+    for(let btn of removeRecentSearchWord) {
+        btn.addEventListener("click", () => {
+            recentSearch.removeChild(btn.parentElement);
+            if(recentSearch.childElementCount < 1) { //if there are no recent searches
+                hide(recentSearchHeader);
+                hide(recentSearch);
+            }
+        })
+    }
 }
 //createRecentSearch("holistic");
+
 
 //--------------- API request ------------------
 function getWordData(word){
@@ -191,9 +212,10 @@ function getWordData(word){
     })
     .then(response => response.json())
     .then(data => {
-        if(data.success !== false){
+        if(data.success !== false && data.results){
             console.log(data);
             createRecentSearch(word);
+            if(recentSearch.childElementCount > 10) recentSearch.removeChild(recentSearch.lastElementChild);
             hide(loader);
             hide(messages);
             mainBody.innerHTML = "";
@@ -220,7 +242,6 @@ function getWordData(word){
         }
     }); 
 }
-
 
 
 
@@ -266,6 +287,7 @@ closeMenuIcon.addEventListener("click", () => {
 
 createRecentSearch("samuel");
 createRecentSearch("grace");
+createRecentSearch("rich");
 console.log(recentSearch.children);
 //searchbar is clicked
 userInput.addEventListener("input", () => {
@@ -282,7 +304,7 @@ userInput.addEventListener("input", () => {
     }
 })
 
-// //search button is clicked
+//search button is clicked
 searchBtn.addEventListener("click", () => {
     if(userInput.value){
         logMessage(loader);
@@ -297,12 +319,12 @@ searchBtn.addEventListener("click", () => {
 
 
 
-
-// createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
-// createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
-// createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
-// createSyllables("narufy", "verb", "na-ru-fy", "3");
-// createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
+createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
+createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
+createSyllables("narufy", "verb", "na-ru-fy", "3");
+createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+show(mainBody);
 
 let jsonData = {
     "word": "love",
