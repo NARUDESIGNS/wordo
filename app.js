@@ -191,20 +191,32 @@ function getWordData(word){
     })
     .then(response => response.json())
     .then(data => {
-        createRecentSearch(word);
-        hide(loader);
-        hide(messages);
-        console.log(data);
-        show(mainBody);
-        renderData(data);
+        if(data.success !== false){
+            console.log(data);
+            createRecentSearch(word);
+            hide(loader);
+            hide(messages);
+            mainBody.innerHTML = "";
+            show(mainBody);
+            renderData(data);            
+        }
+        else {
+            console.log("that word isn't found na!");
+            hide(messages);
+            hide(loader);
+            show(mainBody);
+            setTimeout(() => {
+                console.log("warning logged")
+                logWarning("word not found!");   
+            }, 300);         
+
+        }
+
     })
     .catch(error => {
         console.log(error);
         if(error.message === "Failed to fetch"){
             logMessage(connectionTip);
-        }
-        else {
-            logWarning("word not found!");
         }
     }); 
 }
@@ -273,7 +285,6 @@ userInput.addEventListener("input", () => {
 // //search button is clicked
 searchBtn.addEventListener("click", () => {
     if(userInput.value){
-        mainBody.innerHTML = "";
         logMessage(loader);
         getWordData(userInput.value);   
         hide(recentSearchHeader);

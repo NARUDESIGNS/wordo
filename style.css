@@ -130,7 +130,7 @@
 }
 
 .warning {
-    z-index: 11;
+    z-index: 21;
     position: fixed;
     text-align: center;
     padding: 20px;
