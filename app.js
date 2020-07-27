@@ -27,6 +27,11 @@ const recentSearch = document.getElementById("recent-search");
 const userInput = document.getElementById("user-input");
 const searchBtn = document.getElementById("search-btn");
 
+//BOOKMARK VIEW
+const bookmarkView = document.getElementById("bookmark-view");
+const bookmarkExitBtn = document.getElementById("bookmark-exit-btn");
+const wordsSaved = document.getElementById("words-saved");
+const wordOfTheDay = document.getElementById("word-of-the-day");
 
 
 //-------------------- FUNCTIONS ----------------------
@@ -64,10 +69,10 @@ export function logWarning(message) {
 //logMessage(loader);
 
 
-
 //----------------------- CREATE ELEMENTS ------------------
 //create word container
 export function createWordContainer(word, partOfSpeech, transcription, definition){
+    if(partOfSpeech === null) partOfSpeech = "unknown";
     mainBody.innerHTML += `
         <section id="${word}-${partOfSpeech}" class="word-container">
             <div class="word-utils">
@@ -127,6 +132,7 @@ export function createExamples(word, partOfSpeech, examples){
 
 //create syllables
 export function createSyllables(word, partOfSpeech, syllable, count) {
+    if(partOfSpeech === null) partOfSpeech = "unknown";
     mainBody.innerHTML += `
         <section class="syllables-container">
             <h4 class="syllables-container__header">Syllables</h4>
@@ -219,26 +225,26 @@ function getWordData(word){
             hide(loader);
             hide(messages);
             mainBody.innerHTML = "";
+            userInput.value = "";
             show(mainBody);
-            renderData(data);            
+            renderData(data);    
         }
         else {
-            console.log("that word isn't found na!");
             hide(messages);
             hide(loader);
             show(mainBody);
             setTimeout(() => {
-                console.log("warning logged")
                 logWarning("word not found!");   
             }, 300);         
-
         }
-
     })
     .catch(error => {
         console.log(error);
         if(error.message === "Failed to fetch"){
             logMessage(connectionTip);
+        }
+        else {
+            alert("error encountered searching that word")
         }
     }); 
 }
@@ -288,9 +294,9 @@ closeMenuIcon.addEventListener("click", () => {
 createRecentSearch("samuel");
 createRecentSearch("grace");
 createRecentSearch("rich");
-console.log(recentSearch.children);
 //searchbar is clicked
 userInput.addEventListener("input", () => {
+    if(userInput.value.startsWith(" ")) userInput.value = userInput.value.replace(" ", "");
     if(userInput.value === "") {
         hide(recentSearchHeader);
         hide(recentSearch);
@@ -298,6 +304,8 @@ userInput.addEventListener("input", () => {
     else {
         //if there are recently searched words, display them
         if(recentSearch.childElementCount > 0) {
+            recentSearch.classList.add("slide-recentSearch-up");
+            recentSearchHeader.classList.add("slide-recentSearch-up");
             show(recentSearchHeader);
             show(recentSearch, "flex");
         }        
@@ -319,11 +327,11 @@ searchBtn.addEventListener("click", () => {
 
 
 
-createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
-createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
-createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
-createSyllables("narufy", "verb", "na-ru-fy", "3");
-createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+// createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
+// createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
+// createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
+// createSyllables("narufy", "verb", "na-ru-fy", "3");
+// createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
 show(mainBody);
 
 let jsonData = {
@@ -385,4 +393,31 @@ let jsonData = {
     }
 }
 
-//renderData(jsonData);
+renderData(jsonData);
+
+
+
+//------------------ BOOKMARK VIEW -------------------------
+
+//save button is clicked
+export function enableSave() {
+    let save = document.getElementsByClassName("word-utils__save");
+    for(let i = 0; i < save.length; i++) { 
+        let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
+        save[i].addEventListener("click", () => {
+            saveWord(word);
+        })
+    }
+}
+
+//process saved words
+let savedWords = [];
+export function saveWord(word) {
+    savedWords.unshift(word);
+    savedWords = [... new Set(savedWords)];
+    renderSavedWords(savedWords);
+}
+
+function renderSavedWords(words){
+    console.log(words);
+}

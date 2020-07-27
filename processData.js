@@ -4,6 +4,7 @@
  import {createExamples} from "/app.js";
  import {createSyllables} from "/app.js";
  import {createSynonymAntonym} from "/app.js";
+ import {enableSave} from "/app.js";
 
 export function renderData(data) {
     //function to extract data for individual part of speech
@@ -15,7 +16,7 @@ export function renderData(data) {
             examples: []
         } 
         posData.pos = pos;
-        posData.pronunciation = data.pronunciation.all || data.pronunciation[pos];//words API sometimes has a general pronunciation or pronunciation for each pos
+        posData.pronunciation = data.pronunciation.all || data.pronunciation[pos] || data.pronunciation;//words API sometimes has a general pronunciation or pronunciation for each pos
         for(let result of results) {
             if(result.partOfSpeech === pos) {
                 posData.definitions.push(result.definition);
@@ -67,5 +68,5 @@ export function renderData(data) {
     // NB: uniquePos.length[uniquePos.length - 1] makes syllables container take up the last word container color since
     createSyllables(generalData.word, uniquePos[uniquePos.length - 1], generalData.syllables, generalData.syllablesCount);
     createSynonymAntonym(generalData.synonyms, generalData.antonyms);
-
+    enableSave();
 }

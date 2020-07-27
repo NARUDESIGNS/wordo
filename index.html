@@ -6,6 +6,7 @@
     <title>WORDO</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varta:wght@300;700&display=swap">
 </head>
 <body>
     
@@ -105,11 +106,11 @@
 
             <section id="menu" class="menu">
                 <ul class="menu-options">
-                    <li>
+                    <li id="words-saved" class="words-saved">
                         <span class="menu-options__saved-icon"><i class="fa fa-bookmark"></i></span> 
                         <p class="menu-options__saved"> Words you saved </p>                        
                     </li>
-                    <li>
+                    <li id="word-of-the-day" class="wotd">
                         <span class="menu-options__wotd-icon"><i class="fa fa-th-large"></i></span> 
                         <p class="menu-options__wotd"> Word of the day </p>                        
                     </li>
@@ -229,9 +230,9 @@
             </section>
         </div>
 
-        <div class="bookmark-view">
+        <div id="bookmark-view" class="bookmark-view">
             <section class="bookmark-header-container">
-                <span class="bookmark-header-container__return-icon"><i class="fa fa-arrow-left"></i></span>
+                <span id="bookmark-exit-btn" class="bookmark-header-container__return-icon"><i class="fa fa-arrow-left"></i></span>
                 <h4 class="bookmark-header-container__header">Words you saved</></h4>
                 <span class="bookmark-header-container__bookmark-icon"><i class="fa fa-bookmark"></i></span>
             </section>
