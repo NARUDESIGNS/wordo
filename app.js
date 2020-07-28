@@ -292,10 +292,16 @@ closeMenuIcon.addEventListener("click", () => {
     }, 100);
 });
 
+//hide recent search when user clicks on screen
+mainBody.addEventListener("click", () => {
+    hide(recentSearchHeader);
+    hide(recentSearch);
+})
+
 createRecentSearch("samuel");
 createRecentSearch("grace");
 createRecentSearch("rich");
-//searchbar is clicked
+//user inputs data
 userInput.addEventListener("input", () => {
     if(userInput.value.startsWith(" ")) userInput.value = userInput.value.replace(" ", "");
     if(userInput.value === "") {
@@ -311,6 +317,14 @@ userInput.addEventListener("input", () => {
             show(recentSearch, "flex");
         }        
     }
+})
+
+//searchbar is clicked
+userInput.addEventListener("focus", () => {
+    recentSearch.classList.add("slide-recentSearch-up");
+    recentSearchHeader.classList.add("slide-recentSearch-up");
+    show(recentSearchHeader);
+    show(recentSearch, "flex");
 })
 
 //search button is clicked
@@ -330,6 +344,7 @@ wordsSaved.addEventListener("click", () => {
     setTimeout(() => {
         hide(mainView);
         hide(menu);
+        menu.classList.remove("slide-menu-down");//so that menu doesn't loose its slide down effect
         mainView.classList.remove("slide-element-out");
         bookmarkView.classList.add("fade-in");
         show(bookmarkView);
@@ -460,13 +475,13 @@ function renderSavedWords(word){ console.log(typeof wordExists);
             wordExists.splice(wordExists.indexOf(text), 1);
         })
     }
-    let saved = document.getElementsByClassName("saved");
-    for(let each of saved){
+    let savedWord = document.getElementsByClassName("saved__word");
+    for(let each of savedWord){
         each.addEventListener("click", () => {
             hide(bookmarkView);
             show(mainView);
             logMessage(loader);
-            getWordData(each.firstElementChild.innerText);
+            getWordData(each.innerText);
         })
     }
 }
