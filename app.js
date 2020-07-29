@@ -62,12 +62,9 @@ export function logWarning(message) {
     setTimeout(() => {
         warning.classList.toggle("slide-warning-up");
         warning.classList.toggle("slide-warning-down");
-        setTimeout(() => {
-           hide(warning);  
-        }, 100)
     }, 3500);
 }
-//logMessage(loader);
+//logWarning("Warning!");      
 
 
 //----------------------- CREATE ELEMENTS ------------------
@@ -298,9 +295,8 @@ mainBody.addEventListener("click", () => {
     hide(recentSearch);
 })
 
-createRecentSearch("samuel");
-createRecentSearch("grace");
-createRecentSearch("rich");
+createRecentSearch("design");
+
 //user inputs data
 userInput.addEventListener("input", () => {
     if(userInput.value.startsWith(" ")) userInput.value = userInput.value.replace(" ", "");
@@ -437,19 +433,27 @@ renderData(jsonData);
 //------------------ BOOKMARK VIEW -------------------------
 
 //save button is clicked
+function indicateSave(element) {
+    //get background color of the main word container
+    let bgColor = element.parentElement.parentElement.style.backgroundColor;
+    element.innerText = "saved";
+    element.style.backgroundColor = "white";
+    element.style.color = bgColor;
+}
+
 export function enableSave() {
     let save = document.getElementsByClassName("word-utils__save");
     for(let i = 0; i < save.length; i++) { 
         //save word from the API data in word variable
         let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
         save[i].addEventListener("click", () => {
-            //saveWord(word);
+            indicateSave(save[i]);
             renderSavedWords(word);
         })
     }
 }
 
-//this variable is used for making sure a word is saved before we make saved words unique
+//this array variable (woreExists) is used for making sure a word is saved before we make saved words unique
 let wordExists = [];
 function renderSavedWords(word){ console.log(typeof wordExists);
     //add to saved words and make sure a word doesn't get saved multiple times
