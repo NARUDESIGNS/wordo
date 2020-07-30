@@ -29,13 +29,17 @@ const searchBtn = document.getElementById("search-btn");
 
 //BOOKMARK VIEW
 const bookmarkView = document.getElementById("bookmark-view");
-const wordsSaved = document.getElementById("words-saved");
-//const wordOfTheDay = document.getElementById("word-of-the-day");
+const wordsSaved = document.getElementById("words-saved-link");
 const bookmarkExitBtn = document.getElementById("bookmark-exit-btn");
 const savedWordsContainer = document.getElementById("saved-words-container");
+let savedWordsMessage = document.getElementById("saved-words-message");
+
+//WORD OF THE DAY
+const wordOfTheDay = document.getElementById("word-of-the-day");
+wordOfTheDay.addEventListener("click", () => { alert("This feature will be added soon") });
 
 
-//-------------------- FUNCTIONS ----------------------
+//----------------------------------------     FUNCTIONS     ------------------------------------------
 //show element
 function show(element, value = "block") {
     element.style.display = value;
@@ -47,7 +51,7 @@ function hide(element) {
 
 
 //-------------------- LOG MESSAGES ---------------------
-export function logMessage(element) {
+function logMessage(element) {
     hide(mainBody);
     hide(searchTip);
     hide(connectionTip);
@@ -55,7 +59,7 @@ export function logMessage(element) {
     show(messages, "flex");
     show(element, "flex");
 }
-export function logWarning(message) {
+function logWarning(message) {
     warning.innerText = message;
     warning.classList.toggle("slide-warning-up");
     show(warning);
@@ -64,7 +68,23 @@ export function logWarning(message) {
         warning.classList.toggle("slide-warning-down");
     }, 3500);
 }
+//log message to user when no word has been added
+function logNoSavedWords(){
+    //console.log(bookmarkMessage);
+    if(savedWordsContainer.childElementCount < 1) {
+        console.log("true");
+        savedWordsContainer.innerHTML = `
+            <div id="saved-words-message" class="saved-words-message">
+                <span class="saved-words-message__exclamation-icon"><i class="fa fa-exclamation-circle"></i></span>
+                <p class="saved-words-message__message-text">you haven't saved any word yet, <br> go ahead save some words you'd <br> like to remember</p>
+            </div>
+        `;
+        savedWordsMessage = document.getElementById("saved-words-message");
+        //show(savedWordsMessage);
+    }
+}
 //logWarning("Warning!");      
+
 
 
 //----------------------- CREATE ELEMENTS ------------------
@@ -205,7 +225,7 @@ function createRecentSearch(word) {
 //createRecentSearch("holistic");
 
 
-//--------------- API request ------------------
+//------------------------- API REQUEST --------------------------
 function getWordData(word){
     fetch(`https://wordsapiv1.p.rapidapi.com/words/${word}`, {
         "method": "GET",
@@ -249,7 +269,7 @@ function getWordData(word){
 
 
 
-//-------------------- VIEWS ----------------------
+//----------------------------------------    VIEWS    ---------------------------------
 
 //----------- INTRO VIEW ---------------
 //explore button on first page is clicked
@@ -295,8 +315,6 @@ mainBody.addEventListener("click", () => {
     hide(recentSearch);
 })
 
-createRecentSearch("design");
-
 //user inputs data
 userInput.addEventListener("input", () => {
     if(userInput.value.startsWith(" ")) userInput.value = userInput.value.replace(" ", "");
@@ -317,10 +335,13 @@ userInput.addEventListener("input", () => {
 
 //searchbar is clicked
 userInput.addEventListener("focus", () => {
-    recentSearch.classList.add("slide-recentSearch-up");
-    recentSearchHeader.classList.add("slide-recentSearch-up");
-    show(recentSearchHeader);
-    show(recentSearch, "flex");
+        //if there are recently searched words, display them
+        if(recentSearch.childElementCount > 0) {
+            recentSearch.classList.add("slide-recentSearch-up");
+            recentSearchHeader.classList.add("slide-recentSearch-up");
+            show(recentSearchHeader);
+            show(recentSearch, "flex");
+        }     
 })
 
 //search button is clicked
@@ -333,8 +354,37 @@ searchBtn.addEventListener("click", () => {
     }
 })
 
+//change save button background color to white, to show it has been saved
+function indicateSave(element) {
+    //get background color of the main word container
+    let bgColor = element.parentElement.parentElement.style.backgroundColor;
+    element.innerText = "saved";
+    element.style.backgroundColor = "white";
+    element.style.color = bgColor;
+}
+
+//save button is clicked
+export function enableSave() {
+    let save = document.getElementsByClassName("word-utils__save");
+    for(let i = 0; i < save.length; i++) { 
+        //save word from the API data in word variable
+        let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
+        save[i].addEventListener("click", () => {
+            console.log(word + " saved");
+            indicateSave(save[i]);
+            //hide(savedWordsMessage);
+            if(savedWordsContainer.lastElementChild.id === "saved-words-message") {
+                savedWordsContainer.removeChild(savedWordsMessage);                
+            }
+
+            renderSavedWords(word);
+        })
+    }
+}
+
 
 //---------- BOOKMARK VIEW ------------------
+//words saved header is clicked and leads to words saved page
 wordsSaved.addEventListener("click", () => {
     mainView.classList.add("slide-element-out");
     setTimeout(() => {
@@ -347,6 +397,7 @@ wordsSaved.addEventListener("click", () => {
     }, 250)
 })
 
+//bookmark view is exited
 bookmarkExitBtn.addEventListener("click", () => {
     bookmarkView.classList.add("fade-out");
     bookmarkView.classList.remove("fade-in");
@@ -357,16 +408,59 @@ bookmarkExitBtn.addEventListener("click", () => {
     }, 250)
 })
 
+//render saved words
+let wordExists = []; //this array variable (woreExists) is used for making sure a word is saved before we make saved words unique
+function renderSavedWords(word){ 
+    //add to saved words and make sure a word doesn't get saved multiple times
+    if(!wordExists.includes(word)){
+        savedWordsContainer.innerHTML += `
+            <div class="saved">
+                <p class="saved__word">${word.toLowerCase()}</p>
+                <span id="saved-remove-btn" class="saved__remove-icon"><i class="fa fa-times"></i></span>
+            </div>
+        `;
+        wordExists.push(word);    
+        //save to local storage
+        storeUserSession(wordExists);
+    }
 
+    //saved word is deleted
+    const deleteSavedWordBtns = document.getElementsByClassName("saved__remove-icon");
+    for(let deleteBtn of deleteSavedWordBtns) {
+        deleteBtn.addEventListener("click", () => {
+            deleteBtn.parentElement.classList.add("fade-out");
+            //setTimeout(() => {
+                console.log(deleteBtn.parentElement);
+                savedWordsContainer.removeChild(deleteBtn.parentElement);
+            //}, 100);
+            let text = deleteBtn.previousElementSibling.innerText.toUpperCase(); //we converted to uppercase cos all words in wordExists are in uppercase
+            wordExists.splice(wordExists.indexOf(text), 1);
+            console.log(text.toUpperCase() + " deleted")
+            //save to local storage
+            storeUserSession(wordExists);
+            logNoSavedWords();
+        })
+    }
+    let savedWord = document.getElementsByClassName("saved__word");
+    for(let each of savedWord){
+        each.addEventListener("click", () => {
+            hide(bookmarkView);
+            show(mainView);
+            logMessage(loader);
+            getWordData(each.innerText);
+        })
+    }
+}
 
-
-//you should take this out later on when the app is ready
-show(mainBody);
 createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
 createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
 createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
 createSyllables("narufy", "verb", "na-ru-fy", "3");
 createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
+
+//you should take this out later on when the app is ready
+show(mainBody);
+
 let jsonData = {
     "word": "love",
     "results": [
@@ -428,64 +522,21 @@ let jsonData = {
 
 renderData(jsonData);
 
-
-
-//------------------ BOOKMARK VIEW -------------------------
-
-//save button is clicked
-function indicateSave(element) {
-    //get background color of the main word container
-    let bgColor = element.parentElement.parentElement.style.backgroundColor;
-    element.innerText = "saved";
-    element.style.backgroundColor = "white";
-    element.style.color = bgColor;
+//save to local storage
+function storeUserSession(data){
+    localStorage.setItem("savedWords", data);
 }
 
-export function enableSave() {
-    let save = document.getElementsByClassName("word-utils__save");
-    for(let i = 0; i < save.length; i++) { 
-        //save word from the API data in word variable
-        let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
-        save[i].addEventListener("click", () => {
-            indicateSave(save[i]);
-            renderSavedWords(word);
-        })
+//get data from local storage
+if(localStorage.savedWords){
+    let listOfWords = localStorage.savedWords.split(",");
+    for(let list of listOfWords) {
+        renderSavedWords(list);
     }
-}
-
-//this array variable (woreExists) is used for making sure a word is saved before we make saved words unique
-let wordExists = [];
-function renderSavedWords(word){ console.log(typeof wordExists);
-    //add to saved words and make sure a word doesn't get saved multiple times
-    if(!wordExists.includes(word)){
-        savedWordsContainer.innerHTML += `
-            <div class="saved">
-                <p class="saved__word">${word.toLowerCase()}</p>
-                <span id="saved-remove-btn" class="saved__remove-icon"><i class="fa fa-times"></i></span>
-            </div>
-        `;
-        wordExists.push(word);    
+    //if there are saved words, hide the bookmark message: "you haven't saved any word yet..."
+    if(savedWordsContainer.firstElementChild.id === "saved-words-message") {
+        savedWordsContainer.removeChild(savedWordsContainer.firstElementChild);             
     }
 
-    //saved word is deleted
-    const deleteSavedWordBtns = document.getElementsByClassName("saved__remove-icon");
-    for(let deleteBtn of deleteSavedWordBtns) {
-        deleteBtn.addEventListener("click", () => {
-            deleteBtn.parentElement.classList.add("fade-out");
-            setTimeout(() => {
-                savedWordsContainer.removeChild(deleteBtn.parentElement);
-            }, 500);
-            let text = deleteBtn.previousElementSibling.innerText;
-            wordExists.splice(wordExists.indexOf(text), 1);
-        })
-    }
-    let savedWord = document.getElementsByClassName("saved__word");
-    for(let each of savedWord){
-        each.addEventListener("click", () => {
-            hide(bookmarkView);
-            show(mainView);
-            logMessage(loader);
-            getWordData(each.innerText);
-        })
-    }
+    console.log(listOfWords);
 }
