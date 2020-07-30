@@ -331,15 +331,15 @@ userInput.addEventListener("input", () => {
 })
 
 //searchbar is clicked
-userInput.addEventListener("focus", () => {
-        //if there are recently searched words, display them
-        if(recentSearch.childElementCount > 0) {
-            recentSearch.classList.add("slide-recentSearch-up");
-            recentSearchHeader.classList.add("slide-recentSearch-up");
-            show(recentSearchHeader);
-            show(recentSearch, "flex");
-        }     
-})
+// userInput.addEventListener("focus", () => {
+//         //if there are recently searched words, display them
+//         if(recentSearch.childElementCount > 0) {
+//             recentSearch.classList.add("slide-recentSearch-up");
+//             recentSearchHeader.classList.add("slide-recentSearch-up");
+//             show(recentSearchHeader);
+//             show(recentSearch, "flex");
+//         }     
+// })
 
 //search button is clicked
 searchBtn.addEventListener("click", () => {
