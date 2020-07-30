@@ -1,3 +1,0 @@
-## WORDO - Dictionary
-Wordo is a simple dictionary that uses the [https://wordsapi.com] "words api".
-....
