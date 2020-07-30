@@ -327,7 +327,7 @@
 /* ---------------------- INTRO VIEW ------------------- */
 .intro-view {    
     /* put something here later */
-    display: none;
+    /* display: none; */
 }
 
 .intro-message {
@@ -337,12 +337,12 @@
     padding: 1px;
     /* border: 1px solid black; */
     text-align: center;
-    display: none; 
+    /* display: none;  */
 }
 .intro-message__logo {
     max-width: 100px;
     padding: 20px;
-    color: rgb(104, 104, 104);
+    color: var(--main-color);
     /* background-color: var(--main-color); */
     margin: 0 auto;
     margin-bottom: 30px;
@@ -488,7 +488,7 @@
     width: 100vw;
     z-index: 4;
     height: auto;
-    display: non;
+    display: none;
 }
 .menu {
     position: fixed;

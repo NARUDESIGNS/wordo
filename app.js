@@ -1,4 +1,5 @@
 import {renderData} from "/processData.js"
+let wayTo = naru.naruDesigns;
 
 //ERROR | TIP MESSAGES
 const messages = document.getElementById("messages");
@@ -70,9 +71,7 @@ function logWarning(message) {
 }
 //log message to user when no word has been added
 function logNoSavedWords(){
-    //console.log(bookmarkMessage);
     if(savedWordsContainer.childElementCount < 1) {
-        console.log("true");
         savedWordsContainer.innerHTML = `
             <div id="saved-words-message" class="saved-words-message">
                 <span class="saved-words-message__exclamation-icon"><i class="fa fa-exclamation-circle"></i></span>
@@ -80,11 +79,8 @@ function logNoSavedWords(){
             </div>
         `;
         savedWordsMessage = document.getElementById("saved-words-message");
-        //show(savedWordsMessage);
     }
-}
-//logWarning("Warning!");      
-
+}  
 
 
 //----------------------- CREATE ELEMENTS ------------------
@@ -222,7 +218,6 @@ function createRecentSearch(word) {
         })
     }
 }
-//createRecentSearch("holistic");
 
 
 //------------------------- API REQUEST --------------------------
@@ -231,7 +226,7 @@ function getWordData(word){
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-		"x-rapidapi-key": "181bdbd4d8msh2fc3880ee0d5a4bp1f9d15jsna810d4b9bacf"
+		    "x-rapidapi-key": wayTo
 	}
     })
     .then(response => response.json())
@@ -239,6 +234,7 @@ function getWordData(word){
         if(data.success !== false && data.results){
             console.log(data);
             createRecentSearch(word);
+            //prevent number of recently searched words from exceeding 10
             if(recentSearch.childElementCount > 10) recentSearch.removeChild(recentSearch.lastElementChild);
             hide(loader);
             hide(messages);
@@ -317,6 +313,7 @@ mainBody.addEventListener("click", () => {
 
 //user inputs data
 userInput.addEventListener("input", () => {
+    //prevent input from starting with space
     if(userInput.value.startsWith(" ")) userInput.value = userInput.value.replace(" ", "");
     if(userInput.value === "") {
         hide(recentSearchHeader);
@@ -367,16 +364,14 @@ function indicateSave(element) {
 export function enableSave() {
     let save = document.getElementsByClassName("word-utils__save");
     for(let i = 0; i < save.length; i++) { 
-        //save word from the API data in word variable
+        //save word from the API data in word container
         let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
         save[i].addEventListener("click", () => {
-            console.log(word + " saved");
+            console.log(word + " saved to saved words list");
             indicateSave(save[i]);
-            //hide(savedWordsMessage);
             if(savedWordsContainer.lastElementChild.id === "saved-words-message") {
                 savedWordsContainer.removeChild(savedWordsMessage);                
             }
-
             renderSavedWords(word);
         })
     }
@@ -429,18 +424,17 @@ function renderSavedWords(word){
     for(let deleteBtn of deleteSavedWordBtns) {
         deleteBtn.addEventListener("click", () => {
             deleteBtn.parentElement.classList.add("fade-out");
-            //setTimeout(() => {
-                console.log(deleteBtn.parentElement);
-                savedWordsContainer.removeChild(deleteBtn.parentElement);
-            //}, 100);
+            console.log(deleteBtn.parentElement);
+            savedWordsContainer.removeChild(deleteBtn.parentElement);
             let text = deleteBtn.previousElementSibling.innerText.toUpperCase(); //we converted to uppercase cos all words in wordExists are in uppercase
             wordExists.splice(wordExists.indexOf(text), 1);
-            console.log(text.toUpperCase() + " deleted")
+            console.log(text.toUpperCase() + " deleted from saved words list")
             //save to local storage
             storeUserSession(wordExists);
             logNoSavedWords();
         })
     }
+    //display saved word info when the saved word is clicked
     let savedWord = document.getElementsByClassName("saved__word");
     for(let each of savedWord){
         each.addEventListener("click", () => {
@@ -452,76 +446,6 @@ function renderSavedWords(word){
     }
 }
 
-createWordContainer("Narufy", "verb", "na-ru-fai", "to show extreme excellence in all you do and attain mind blowing succes");
-createDefinitions("narufy", "verb", ["Making something super succesful such that there are no possibililties of future errors.", "Planning something in a way that it doesn't fail even when external factors tend to interfere.", "a succesful state of leadership"]);
-createExamples("narufy", "verb", ["The ability to narufy things is what people seek for these days", "If you narufy the exam then you'd become the best student in the entire department", "be patient when you have to narufy things, else you'd inadvertently make errors!"]);
-createSyllables("narufy", "verb", "na-ru-fy", "3");
-createSynonymAntonym(["plan", "success", "exceed", "prevail", "overcome", "progress", "pass", "win"], ["fail", "loose", "regress", "defeat", "fall"]);
-
-//you should take this out later on when the app is ready
-show(mainBody);
-
-let jsonData = {
-    "word": "love",
-    "results": [
-        {
-            "definition": "get pleasure from",
-            "partOfSpeech": "verb",
-            "synonyms": [
-                "enjoy"
-            ],
-            "antonyms": [
-                "hate"
-            ],
-            "examples": [
-                "I love cooking",
-                "dancing is what they love to do"
-            ]
-        }, 
-        {
-            "definition": "sexual activities (often including sexual intercourse) between two people",
-            "partOfSpeech": "noun",
-            "synonyms": [
-                "love life",
-                "lovemaking",
-                "sexual love"
-            ],
-            "examples": [
-                "his lovemaing disgusted her",
-                "he hadn't had any love in months",
-                "he has a very complicated love life such that no one will want to stay with him"
-            ]
-        },
- 
-        {
-            "definition": "any objet of warm affection of devotion",
-            "partOfSpeech": "noun",
-            "synonyms": [
-                "passion"
-            ],
-            "antonyms": [
-                "dislike"
-            ],
-            "examples": [
-                "the theatre was her first love",
-            ]
-        }
-    ],
-
-    "syllables": {
-        "count": 1,
-        "list": [
-            "love"
-        ]
-    },
-
-    "pronunciation": {
-        "all": "lov"
-    }
-}
-
-renderData(jsonData);
-
 //save to local storage
 function storeUserSession(data){
     localStorage.setItem("savedWords", data);
@@ -529,6 +453,7 @@ function storeUserSession(data){
 
 //get data from local storage
 if(localStorage.savedWords){
+    //render all saved words retrieved from the local storage
     let listOfWords = localStorage.savedWords.split(",");
     for(let list of listOfWords) {
         renderSavedWords(list);
@@ -537,6 +462,5 @@ if(localStorage.savedWords){
     if(savedWordsContainer.firstElementChild.id === "saved-words-message") {
         savedWordsContainer.removeChild(savedWordsContainer.firstElementChild);             
     }
-
     console.log(listOfWords);
 }
