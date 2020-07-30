@@ -294,6 +294,9 @@
     -o-border-radius: 50%;
 }
 .messages__search-tip {
+    animation: fade-in 1s ease 0.5s forwards;
+    -webkit-animation: fade-in 1s ease 0.5s forwards;
+    opacity: 0;
     display: none;
 }
 .messages__search-tip--search-icon {
@@ -342,7 +345,7 @@
 .intro-message__logo {
     max-width: 100px;
     padding: 20px;
-    color: var(--main-color);
+    color: gray;
     /* background-color: var(--main-color); */
     margin: 0 auto;
     margin-bottom: 30px;
@@ -435,19 +438,19 @@
     line-height: 2;
 }
 .intro-images:nth-of-type(1) {
-    /* background: url(images/dog.jpg) no-repeat; */
+    background: url(images/dog.jpg) no-repeat;
     background-size: cover;
 }
 .intro-images:nth-of-type(2) {
-    /* background: url(images/search.jpg) no-repeat; */
+    background: url(images/search.jpg) no-repeat;
     background-size: cover;
 }
 .intro-images:nth-of-type(3) {
-    /* background: url(images/home.jpg) no-repeat; */
+    background: url(images/home.jpg) no-repeat;
     background-size: cover;
 }
 .intro-images:nth-of-type(4) {
-    /* background: url(images/sing.jpg) no-repeat; */
+    background: url(images/sing.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
