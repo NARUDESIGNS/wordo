@@ -270,7 +270,6 @@ function getWordData(word){
 //----------- INTRO VIEW ---------------
 //explore button on first page is clicked
 introExploreBtn.addEventListener("click", () =>{
-    alert("this btn should work")
     introExploreBtn.style.display = "none";
     logo.classList.add("fade-out-logo");
     aboutWordo.classList.add("slide-out-text");
