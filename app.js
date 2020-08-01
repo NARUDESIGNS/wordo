@@ -1,4 +1,4 @@
-import {renderData} from "/processData.js"
+import {renderData} from "/processData.js";
 
 //ERROR | TIP MESSAGES
 const messages = document.getElementById("messages");
@@ -225,7 +225,7 @@ function getWordData(word){
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-		    "x-rapidapi-key": env.ACCESS_KEY
+		    "x-rapidapi-key": process.env.ACCESS_KEY
 	}
     })
     .then(response => response.json())
