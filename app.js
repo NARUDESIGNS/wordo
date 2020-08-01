@@ -1,5 +1,4 @@
 import {renderData} from "/processData.js"
-let wayTo = naru.naruDesigns;
 
 //ERROR | TIP MESSAGES
 const messages = document.getElementById("messages");
@@ -226,7 +225,7 @@ function getWordData(word){
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-		    "x-rapidapi-key": wayTo
+		    "x-rapidapi-key": process.env.ACCESS_KEY
 	}
     })
     .then(response => response.json())
