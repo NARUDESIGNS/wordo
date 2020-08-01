@@ -1,4 +1,5 @@
 import {renderData} from "/processData.js"
+require('dotenv').config();
 
 //ERROR | TIP MESSAGES
 const messages = document.getElementById("messages");
