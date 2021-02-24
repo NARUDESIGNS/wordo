@@ -10,17 +10,17 @@
 :root {
     --main-color: rgb(79, 116, 116);
     --light-gray: rgb(247, 247, 247);
-    --very-light-gray: rgb(250, 250, 250);
-    --text-color: rgb(94, 94, 94);
+    --very-light-gray: rgb(245, 245, 245);
+    --text-color: rgb(92, 92, 92);
 
     /* colors based on parts of speech. Noun takes main color */
     --unknown: rgb(3, 143, 207);
     --noun: rgb(79, 116, 116);
-    --pronoun: rgb(72, 192, 184);
-    --verb: rgb(145, 61, 93);
+    --pronoun: rgb(42, 173, 165);
+    --verb: rgb(163, 43, 89);
     --adverb: rgb(212, 99, 24);
     --adjective: rgb(209, 156, 10);
-    --preposition: rgb(122, 39, 115);
+    --preposition: rgb(117, 19, 109);
     --conjunction: rgb(77, 90, 150);
     --interjection: rgb(180, 50, 50);
 }
@@ -239,14 +239,14 @@
 .messages__loader {
     height: 30px;
     width: 30px;
-    border: 2px solid rgb(139, 139, 139);
+    border: 2px solid transparent;
+    border-top: solid rgb(139, 139, 139);
+    border-right: solid rgb(139, 139, 139);
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
-    border-top: none;
-    border-right: none;
     animation: rotate-loader 0.7s linear infinite;
     -webkit-animation: rotate-loader 0.7s linear infinite;
     display: none;
@@ -319,18 +319,18 @@
 
 .container {
     /* margin: 0 auto;
-    width: 80%; */
+    max-width: 600px; */
     font-family: "Rubik", sans-serif;
-    font-size: 13px;
+    font-size: 13.5px;
     color: var(--text-color);
-    font-weight: lighter;
+    font-weight: 400;
 } 
 
 
 /* ---------------------- INTRO VIEW ------------------- */
 /* .intro-view {    
-    put something here later */
-    /* display: none;
+    put something here later
+    display: none;
 } */
 
 .intro-message {
@@ -528,7 +528,7 @@
 .nav {
     position: fixed;
     top: 0;
-    z-index: 5;
+    z-index: 6;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -702,14 +702,14 @@
 .search-utils {
     position: fixed;
     bottom: 0;
-    z-index: 5;
+    z-index: 7;
     background-color: white;
     width: 100%;
     box-shadow: 0 -5px 15px rgb(172, 172, 172, .2);
 }
 .search-utils__header {
     margin: 10px 10%;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
     margin-bottom: 10px;
     display: none;
@@ -840,6 +840,7 @@
 .saved-words-container {
     margin: 2%;
     margin-top: 110px;
+    scroll-behavior: smooth;
     padding: 1px;
     /* border: 1px solid yellow; */
 }
@@ -882,4 +883,27 @@
     font-size: 11px;
     height: 35px;
     width: 35px;
+}
+
+@media screen and (max-height: 600px) {
+    .intro-message {
+        margin-top: 70px;
+    }
+
+    .swipe-container {
+        top: 73vh;
+    }
+
+    .intro-images-container {
+        height: 80vh;
+    }
+
+    .intro-view__explore, .intro-message__explore {
+        margin: 40px auto 0;
+    }
+
+    /* MAIN VIEW */
+    .messages {
+        top: 10px;
+    }
 }

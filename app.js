@@ -202,6 +202,7 @@ function createRecentSearch(word) {
     for(let word of recentlySearchedWords) {
         word.addEventListener("click", () => {
             userInput.value = word.innerText;
+            userInput.focus();
         })
     }
 
@@ -214,6 +215,7 @@ function createRecentSearch(word) {
                 hide(recentSearchHeader);
                 hide(recentSearch);
             }
+            userInput.focus();
         })
     }
 }
@@ -221,12 +223,12 @@ function createRecentSearch(word) {
 
 //------------------------- API REQUEST --------------------------
 function getWordData(word){
-    fetch(`https://wordsapiv1.p.rapidapi.com/words/${word}`, {
+    fetch(`https://wordsapiv1.p.rapidapi.com/words/${word.toLowerCase()}`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "wordsapiv1.p.rapidapi.com",
-		    "x-rapidapi-key": process.env.ACCESS_KEY
-	}
+		    "x-rapidapi-key": process.env.API_KEY,
+	    }
     })
     .then(response => response.json())
     .then(data => {
@@ -248,6 +250,7 @@ function getWordData(word){
             show(mainBody);
             setTimeout(() => {
                 logWarning("word not found!");   
+                if(mainBody.childElementCount < 1) logMessage(searchTip);
             }, 300);         
         }
     })
@@ -258,6 +261,8 @@ function getWordData(word){
         }
         else {
             alert("error encountered searching that word! please search another");
+            hide(mainBody);
+            logMessage(searchTip);
         }
     }); 
 }
@@ -267,16 +272,20 @@ function getWordData(word){
 //----------------------------------------    VIEWS    ---------------------------------
 
 //----------- INTRO VIEW ---------------
-//explore button on first page is clicked
-introExploreBtn.addEventListener("click", () =>{
-    introExploreBtn.style.display = "none";
-    logo.classList.add("fade-out-logo");
-    aboutWordo.classList.add("slide-out-text");
-    setTimeout(() => {
-        hide(introMessage);
-        show(introBody);        
-    }, 1300);
-});
+window.addEventListener("load", () => {
+    console.log("page loaded!");
+    //explore button on first page is clicked
+    introExploreBtn.addEventListener("click", () =>{
+        introExploreBtn.style.display = "none";
+        logo.classList.add("fade-out-logo");
+        aboutWordo.classList.add("slide-out-text");
+        setTimeout(() => {
+            hide(introMessage);
+            show(introBody);        
+        }, 1300);
+    });
+})
+
 
 //intro view is clicked and links to main view
 introViewExploreBtn.addEventListener("click", () => {
@@ -350,14 +359,32 @@ searchBtn.addEventListener("click", () => {
     }
 })
 
+//enter key is pressed
+document.addEventListener("keydown", (e) => {
+    if(e.key === "Enter"){
+        searchBtn.click();
+        userInput.blur(); //remove focus from the input
+    }
+})
+
 //change save button background color to white, to show it has been saved
-function indicateSave(element) {
-    //get background color of the main word container
-    let bgColor = element.parentElement.parentElement.style.backgroundColor;
-    element.innerText = "saved";
-    element.style.backgroundColor = "white";
-    element.style.color = bgColor;
+function indicateSave(element, state = false) {
+    if(element.innerText === "save") {
+        //get background color of the main word container
+        let bgColor = element.parentElement.parentElement.style.backgroundColor;
+        element.innerText = "saved";
+        element.style.backgroundColor = "white";
+        element.style.color = bgColor;        
+    }
+    else {
+        element.innerText = "save";
+        element.style.background = "none";
+        element.style.color = "white";    
+        //if the word exists, remove it from wordEsists array to create toggle effect for save and unsave
+        //wordExists.splice(wordExists.indexOf(word), 1);
+    }
 }
+//console.log(savedWordsContainer.contains(savedWordsContainer.children[1]));
 
 //save button is clicked
 export function enableSave() {
@@ -367,12 +394,14 @@ export function enableSave() {
         let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
         save[i].addEventListener("click", () => {
             console.log(word + " saved to saved words list");
-            indicateSave(save[i]);
+            //when a save btn is clicked, indicate save for all parts of speech of the word
+            for(let j = 0; j < save.length; j++) indicateSave(save[j]);
+            //if there is a word saved in savedWordsContainer, remove the message displayed when there are no saved words
             if(savedWordsContainer.lastElementChild.id === "saved-words-message") {
                 savedWordsContainer.removeChild(savedWordsMessage);                
             }
             renderSavedWords(word);
-        })
+        });
     }
 }
 
@@ -423,14 +452,16 @@ function renderSavedWords(word){
     for(let deleteBtn of deleteSavedWordBtns) {
         deleteBtn.addEventListener("click", () => {
             deleteBtn.parentElement.classList.add("fade-out");
-            console.log(deleteBtn.parentElement);
-            savedWordsContainer.removeChild(deleteBtn.parentElement);
-            let text = deleteBtn.previousElementSibling.innerText.toUpperCase(); //we converted to uppercase cos all words in wordExists are in uppercase
-            wordExists.splice(wordExists.indexOf(text), 1);
-            console.log(text.toUpperCase() + " deleted from saved words list")
-            //save to local storage
-            storeUserSession(wordExists);
-            logNoSavedWords();
+            //console.log(deleteBtn.parentElement);
+            setTimeout(() => {
+                savedWordsContainer.removeChild(deleteBtn.parentElement);
+                let text = deleteBtn.previousElementSibling.innerText.toUpperCase(); //we converted to uppercase cos all words in wordExists are in uppercase
+                wordExists.splice(wordExists.indexOf(text), 1);
+                console.log(text.toUpperCase() + " deleted from saved words list");
+                //save to local storage
+                storeUserSession(wordExists);
+                logNoSavedWords();
+            }, 500);
         })
     }
     //display saved word info when the saved word is clicked
