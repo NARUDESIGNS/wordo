@@ -63,7 +63,7 @@ export function renderData(data) {
         createDefinitions(generalData.word, pos, posData.definitions);
         createExamples(generalData.word, pos, posData.examples);
     }
-    //console.log(generalData);
+    
     //render view for general data
     // NB: uniquePos.length[uniquePos.length - 1] makes syllables container take up the last word container color since
     createSyllables(generalData.word, uniquePos[uniquePos.length - 1], generalData.syllables, generalData.syllablesCount);
