@@ -23,7 +23,6 @@ export function renderData(data) {
                 posData.examples = result.examples !== undefined ? posData.examples.concat(result.examples) : posData.examples.concat([]);
             }
         }
-        //console.log(posData);
         return posData;
     }
 

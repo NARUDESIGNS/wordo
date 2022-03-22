@@ -233,7 +233,6 @@ function getWordData(word){
     .then(response => response.json())
     .then(data => {
         if(data.success !== false && data.results){
-            console.log(data);
             createRecentSearch(word);
             //prevent number of recently searched words from exceeding 10
             if(recentSearch.childElementCount > 10) recentSearch.removeChild(recentSearch.lastElementChild);
@@ -255,7 +254,6 @@ function getWordData(word){
         }
     })
     .catch(error => {
-        console.log(error);
         if(error.message === "Failed to fetch"){
             logMessage(connectionTip);
         }
@@ -273,7 +271,6 @@ function getWordData(word){
 
 //----------- INTRO VIEW ---------------
 window.addEventListener("load", () => {
-    console.log("page loaded!");
     //explore button on first page is clicked
     introExploreBtn.addEventListener("click", () =>{
         introExploreBtn.style.display = "none";
@@ -338,17 +335,6 @@ userInput.addEventListener("input", () => {
     }
 })
 
-//searchbar is clicked
-// userInput.addEventListener("focus", () => {
-//         //if there are recently searched words, display them
-//         if(recentSearch.childElementCount > 0) {
-//             recentSearch.classList.add("slide-recentSearch-up");
-//             recentSearchHeader.classList.add("slide-recentSearch-up");
-//             show(recentSearchHeader);
-//             show(recentSearch, "flex");
-//         }     
-// })
-
 //search button is clicked
 searchBtn.addEventListener("click", () => {
     if(userInput.value){
@@ -380,11 +366,8 @@ function indicateSave(element, state = false) {
         element.innerText = "save";
         element.style.background = "none";
         element.style.color = "white";    
-        //if the word exists, remove it from wordEsists array to create toggle effect for save and unsave
-        //wordExists.splice(wordExists.indexOf(word), 1);
     }
 }
-//console.log(savedWordsContainer.contains(savedWordsContainer.children[1]));
 
 //save button is clicked
 export function enableSave() {
@@ -393,7 +376,6 @@ export function enableSave() {
         //save word from the API data in word container
         let word = save[i].parentElement.nextElementSibling.firstElementChild.innerText;
         save[i].addEventListener("click", () => {
-            console.log(word + " saved to saved words list");
             //when a save btn is clicked, indicate save for all parts of speech of the word
             for(let j = 0; j < save.length; j++) indicateSave(save[j]);
             //if there is a word saved in savedWordsContainer, remove the message displayed when there are no saved words
@@ -452,12 +434,10 @@ function renderSavedWords(word){
     for(let deleteBtn of deleteSavedWordBtns) {
         deleteBtn.addEventListener("click", () => {
             deleteBtn.parentElement.classList.add("fade-out");
-            //console.log(deleteBtn.parentElement);
             setTimeout(() => {
                 savedWordsContainer.removeChild(deleteBtn.parentElement);
                 let text = deleteBtn.previousElementSibling.innerText.toUpperCase(); //we converted to uppercase cos all words in wordExists are in uppercase
                 wordExists.splice(wordExists.indexOf(text), 1);
-                console.log(text.toUpperCase() + " deleted from saved words list");
                 //save to local storage
                 storeUserSession(wordExists);
                 logNoSavedWords();
@@ -492,5 +472,4 @@ if(localStorage.savedWords){
     if(savedWordsContainer.firstElementChild.id === "saved-words-message") {
         savedWordsContainer.removeChild(savedWordsContainer.firstElementChild);             
     }
-    console.log(listOfWords);
 }
